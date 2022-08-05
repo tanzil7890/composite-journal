@@ -1,0 +1,759 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Programming with function: C++</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3e23a323-11c2-40da-b5e8-c65d493f87b3" class="page sans"><header><h1 class="page-title">Programming with function: C++</h1></header><div class="page-body"><blockquote id="20c31524-1d4c-416d-b170-5daf258bfeab" class=""><strong>In this course </strong><em><strong>Programming Function in C++ </strong></em><strong>you will learn about what is function, Function Declaration &amp; Definition, Types of Function, Argument Passing, return values, ambiguity resolution, default arguments, and etc.</strong></blockquote><p id="18e54ba9-868c-4bcc-a677-c4a52bacdcd6" class="">
+</p><p id="c71d0c2b-2e7b-4682-9faf-7ef7334a647e" class=""><em>Function are the basic </em><code><em>infrastructure of C++</em></code><em> and it also often calles as</em><em><code> modules.</code></em><em>They are like miniature programs that can be combined to form larger programs. They allow complicated programs to be divided into manageable pieces. </em></p><p id="2beba00a-f7de-47ab-aec6-bc0f0fe60b84" class="">A function groups a number of program statements into a unit and gives it a name. Thus, this units
+can then be invoked from other parts of the program. The most important reason to use functions is to aid in the conceptual organization of a program.</p><figure id="03de0d6d-92c5-4468-aad1-b09083803eb0" class="image"><a href="./Programming with function C++/Img1.png"><img style="width:1198px" src="./Programming with function C++/Img1.png"/></a></figure><h2 id="36db0a6e-a947-4be4-81eb-dc68c793d4eb" class="">Function Declaration</h2><p id="bdd13e6a-bd5a-4079-8fad-869ca493b6a0" class=""><em>The typical way of getting something done in a C++ program is to call a function to do it. Defining
+a function is the way you specify how an operation is to be done. A function cannot be called
+unless it has been previously declared.</em></p><p id="83afead4-b8f5-4372-a1e8-4f2e508103b7" class="">A function declaration gives the name of the function, the type of the value returned (if any) by
+the function, and the number and types of the arguments that must be supplied in a call of the function.</p><p id="f4f3654b-9ad1-44bf-a269-e07da9b03dc8" class=""><strong>The following is its format:</strong></p><pre id="58f95f63-4cd2-41f4-8e82-74389df2db5e" class="code"><code>Function-type nameOfFunction ( parameter1, parameter2, ...) {
+	.......
+	statements //function body 
+	.......
+}</code></pre><p id="3c2ba5fc-ecf8-442a-b1b1-ab66d22f1c98" class="">Where:
+• <code>Function-type</code> : is the data type specifier of the data returned by the function.
+• <code>nameOfFunction</code> : is the identifier by which it will be possible to call the function.
+• <code>parameters</code> : (as many as needed): Each parameter consists of a data type specifier followed by an identifier, like any regular variable declaration (for example: int x) and which acts within the function as a regular local variable. They allow to pass arguments to the function when it is called. The different parameters are separated by commas.
+• <code>statements</code> : is the function&#x27;s body. It is a block of statements surrounded by braces { }.</p><h2 id="bbb73704-c8b9-46cf-ac8d-6d4da8911938" class="">Type of Function</h2><p id="2ba618e3-d1b4-4102-8150-1c77f6139ab9" class="">There are two type of functions C++ </p><ul id="5d5de0ba-874b-439c-bd6a-96210f510129" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid"><strong>User-Defined Function:</strong></span><span style="border-bottom:0.05em solid"> </span><em>User-defined function is a function defined by the user to solve his/her problem. Such a function can be called (or invoked) from anywhere and any number of times in the program. The purpose of using a function is to make the program design process easy, understandable and thereby avoiding ambiguity.</em><pre id="b0a4a9ca-0179-4ba9-a1f0-1f4d3e7a010e" class="code"><code>void GreetingFromPuppy() //Function definition
+{
+	cout&lt;&lt;&quot;Welcome To Functions&quot;&lt;&lt;endl;
+}</code></pre><p id="d5634170-3f05-439a-b755-493e517e65bb" class="">In this simple program we declared the function <code>GreetingFromPuppy()</code>, the return type of this code is <code>void</code> and in the body of function written the Welcome To Functions.</p></li></ul><ul id="750fbe42-c66c-480f-8778-d89e5f0b993b" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid"><strong>Standard Library Function:</strong></span> <em>This is also known as Built-in function. These are the functions that are provided by C++ and we need not write them ourselves. We can directly use these functions in our code. These functions are placed in the header files of C++. </em><em><strong>For Example</strong></em><em>, &lt;cmath&gt;, &lt;string&gt; are the headers that have in-built math functions and string functions respectively.</em></li></ul><h2 id="a6f633ef-723c-4237-a212-0aedcb6dca6b" class="">Function Definition</h2><p id="ad58fb35-4ac8-4293-8ed2-543d058e7c2d" class="">Every function that is called in a program must be defined somewhere (once only). A function definition is a function declaration in which the body of the function is presented. </p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="e31fb0f5-dffe-4282-8b76-fe23285a37c5"><div style="font-size:1.5em"><span class="icon">❔</span></div><div style="width:100%"><strong>Example 1:</strong></div></figure><pre id="4963cadc-89e0-4d2f-acf6-e72076e63519" class="code"><code>void add(int, int) //Function declaration
+
+void add(int a, int b) //Function definition
+{
+	int sum;  //function body
+	sum = a+b; //function body
+	cout&lt;&lt;&quot;The sum of &#x27;a&#x27; and &#x27;b&#x27; is: &quot;&lt;&lt;sum&lt;&lt;endl;  //function body
+}</code></pre><p id="1ae4fe0e-bf9e-4cc7-b415-14478f4c9b23" class="">In the above program, <code>void add(int, int)</code> is a declaring function so that we can use it elsewhere and <code>void add(int a, int b){ .... }</code> is defining the purpose of the function. So it is known as Function Definition.</p><p id="18f47a51-13c1-42e0-b570-1e435ca2d955" class="">The type of the definition and all declarations for a function must specify the same type. The argument names, however, are not part of the type and need not be identical.</p><ul id="793787a0-b38a-49e1-b1ca-179d3270a962" class="bulleted-list"><li style="list-style-type:disc">It is not uncommon to have function definitions with unused arguments:<pre id="9b18aae6-8cdd-4bac-9aa8-6f3a7e5b10fe" class="code"><code>void puppyDescription(char name[20], int weigth, char color[10])
+{
+	//no use of third argument
+}</code></pre></li></ul><p id="b833c4ea-438d-4480-a88a-6908fa4abd65" class="">
+</p><h3 id="98838c92-b96a-40ee-8c0a-8a9e4479795b" class=""><strong>Designing of function</strong></h3><p id="adaa2a74-9316-44fb-8851-adfbb4bca213" class=""><em>Here is the first complete functional example of the function in C++; </em></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="4c7b49c1-b92b-4ce8-96a2-be77cea81d9a"><div style="font-size:1.5em"><span class="icon">❔</span></div><div style="width:100%"><strong>Example:</strong>
+<em>To perform addition between two numbers a &amp; b.</em></div></figure><pre id="e0a36794-f426-4e5e-9141-3a5b6d3e616b" class="code"><code>// function example
+#include &lt;iostream&gt;
+using namespace std;
+int addition (int a, int b)
+{
+ int r;
+ r=a+b;
+ court&lt;&lt;&quot;The addition of a &amp; b: &quot;&lt;&lt;r;
+}
+int main ()
+{
+ addition (5,3);
+ return 0;
+}</code></pre><p id="fe2bcec5-ccc2-4a35-a133-2dc28c31c658" class=""><strong>Output:</strong></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="6f7c5923-fe69-4ea9-b323-40ce95b48511"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%">The result is 8</div></figure><p id="704f24fc-204e-433f-a745-459366534638" class="">In order to examine this code, first of all remember something said at the beginning of this tutorial: a C++ program always begins its execution by the <code>main</code> function. So we will begin there.</p><p id="c0b22f98-3515-4e41-a1d7-ea1c16a681dc" class="">We can see how the <code>main</code> function begins by calling to a function called <code>addition</code>. Paying attention we will be able to see the similarity between the structure of the call to the function and the declaration of the function itself some code lines above:</p><div id="0810b545-f2ba-44cd-8a21-dd36f6b50997" class="column-list"><div id="abfdd347-99e5-482e-a8d3-900312d243fa" style="width:56.25%" class="column"><p id="309be7ae-98ca-4987-892a-3283bd719403" class="">The parameters and arguments have a clear correspondence. Within the <code>main</code> function, we called to addition passing two values:<code> 5</code> and <code>3</code>, that correspond to the <code>int a</code> and <code>int b</code> parameters declared for function addition. </p></div><div id="389c0157-55c2-4e2b-9ff4-4266a370e124" style="width:43.74999999999999%" class="column"><figure id="361c6526-203d-4177-8013-3d7fff99bd38" class="image"><a href="./Programming with function C++/code1.png"><img style="width:384px" src="./Programming with function C++/code1.png"/></a></figure></div></div><p id="b571bf45-4f37-4614-981f-3f45a53f23e1" class="">Next,  which the function is called from within <code>main</code>, the control is lost by main and passed to function <code>addition</code>.  The value of both arguments passed in the call (5 and 3) are copied to the local variables <code>int a </code>and <code>int b</code> within the function.Next, local variable <code>int r</code> will store <code>a+b</code> and then print the sum which is stored inside the r by <code>court&lt;&lt;&quot;The addition of a &amp; b: &quot;&lt;&lt;r;</code> </p><p id="339e60f2-519d-43a4-b738-26ee23cc4df3" class="">
+</p><h3 id="0e91f170-89a8-48e6-b576-f6237d49c852" class="">Calling of function</h3><p id="2b414c22-20e7-4686-bca1-99dae645faca" class=""><em>The c</em>alling of a function is the <em>Rakhee Gulzaar </em>of the movie <em>Karan Arjun, </em>who calls her both sons in the hope that her son will come<em> by Mere Karan Arjun Ayenge</em>. Each time we call the function by its name it will instantly redirect to the function.</p><p id="e08565ef-1f3d-41df-bae0-ccab9f2ff1f8" class=""><strong>Syntax:</strong></p><pre id="80da6bd9-4826-4e3f-b5bd-164d69a36b7f" class="code"><code>functionName() //Calling 
+functionName(parameter1, parameter2, ....)  //Calling with parameter</code></pre><p id="11e80150-66f8-4106-8d8a-c42ce98186af" class="">In the above <code>main</code> function, the function call is made by using <code>addition(5, 3)</code> function.</p><h3 id="de222fc6-4723-4a6d-a5e5-330f297b272a" class=""><span style="border-bottom:0.05em solid">void type function in C++</span></h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="24f98ad3-8b97-4827-aab7-cfdf97310def"><div style="font-size:1.5em"><span class="icon">👉</span></div><div style="width:100%"><em>Things to remember:</em></div></figure><ul id="c23cc766-bea7-480b-a9c2-f6d6d8ab02fc" class="bulleted-list"><li style="list-style-type:disc">Up to one value may be returned; it must be the same type as
+the return type.</li></ul><ul id="f407e949-4271-4ae2-8710-9fd3320b2e8c" class="bulleted-list"><li style="list-style-type:disc">If no values are returned, give the function a void return type</li></ul><p id="0ea1403c-c570-4dc2-9420-6a9b19168c3f" class=""><div class="indented"><pre id="6511cdc5-3dc4-4694-94df-d1f2d20d972e" class="code"><code>void printNumber(int num) {
+ cout &lt;&lt; &quot;number is &quot; &lt;&lt; num &lt;&lt; endl;
+}
+int main() {
+ printNumber(4); // number is 4
+ return 0;
+}</code></pre></div></p><ul id="e4ebd30f-5f61-41d8-b5ff-45606be86127" class="bulleted-list"><li style="list-style-type:disc">Up to one value may be returned; it must be the same type as
+the return type.</li></ul><ul id="0f647e13-5b44-4635-9d77-e5c4e05d9cf4" class="bulleted-list"><li style="list-style-type:disc">If no values are returned, give the function a void return type.<ul id="8ca21525-7527-4e98-8b15-bcb10bb15773" class="bulleted-list"><li style="list-style-type:circle"><em>Note that you cannot declare a variable of type void</em></li></ul><pre id="16d01c27-d1c4-4b2d-ae83-fbe221ba1165" class="code"><code>int main() {
+ void x; // ERROR
+ return 0;
+}</code></pre></li></ul><h3 id="bf872587-3d3e-43f0-ba3f-b5eb0e07ecc0" class=""><span style="border-bottom:0.05em solid">return type function in C++</span></h3><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="60954b40-19d1-4a33-8225-413efcda4362"><div style="font-size:1.5em"><span class="icon">👉</span></div><div style="width:100%">Things to remember:</div></figure><ul id="e0eaab58-0e26-49b8-bfc9-b7e1ca5b8a6f" class="bulleted-list"><li style="list-style-type:disc">Up to one value may be returned; it must be the same type as
+the return type.</li></ul><ul id="da99fa05-77ff-45c9-8e24-3faab59e7a3f" class="bulleted-list"><li style="list-style-type:disc">Once the function performs its intended task, it should return the result to the calling function. For this, we need the return type of the function. The function can return a single value to the calling function. The return type of the function is declared along with the function prototype.<pre id="c173eb08-7886-4390-940e-ebf20c8dcdb7" class="code"><code>#include &lt;iostream&gt;
+using namespace std;
+ 
+int sum(int a, int b){
+return (a+b);
+}
+int main()
+{
+  int a, b, result;
+  cout&lt;&lt;&quot;Enter the two numbers to be added: &quot;; cin&gt;&gt;a&gt;&gt;b;
+  result = sum(a,b);
+  cout&lt;&lt;&quot;\nSum of the two numbers : &quot;&lt;&lt;result;
+}</code></pre><p id="82234909-e4c9-4673-8c81-4043efe2b63b" class=""><strong>Output:</strong></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="28b7a22d-e2cd-42e7-ab3d-6f98d95c7dea"><div style="font-size:1.5em"><span class="icon">👉</span></div><div style="width:100%">Enter the two numbers to be added: 11 11<p id="755fe7df-794a-437d-ba0b-e487595a1b8a" class="">Sum of the two numbers: 22</p></div></figure><p id="580d5cee-e49b-4528-8d20-0479390178b1" class="">
+</p></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="d7ae63b4-2e30-444b-891e-831c5009605e"><div style="font-size:1.5em"><span class="icon">📌</span></div><div style="width:100%"><strong>Notes 1:</strong></div></figure><ul id="546715c5-dfb1-44fa-affb-fd612f0eccb8" class="bulleted-list"><li style="list-style-type:disc">Return statements don’t necessarily need to be at the end.</li></ul><ul id="ef24bde4-f2a4-4f88-8a6d-75d2ae821336" class="bulleted-list"><li style="list-style-type:disc">Function returns as soon as a return statement is executed.<pre id="05341c20-c24f-406e-b820-9dc2e9cce2e9" class="code"><code>void printNumberIfEven(int num) {
+ if (num % 2 == 1) {
+ cout &lt;&lt; &quot;odd number&quot; &lt;&lt; endl;
+ return;
+ }
+ cout &lt;&lt; &quot;even number; number is &quot; &lt;&lt; num &lt;&lt; endl;
+}
+int main() {
+ int x = 4;
+ printNumberIfEven(x);
+ // even number; number is 3
+ int y = 5;
+ printNumberIfEven(y);
+ // odd number
+}</code></pre><h3 id="81b7f8a0-2d9c-452b-9202-b19d5699105f" class=""><span style="border-bottom:0.05em solid">Argument types matters 1:</span></h3><pre id="e670798f-0eab-472b-b071-738b0a7f51d8" class="code"><code>void printOnNewLine(int x)
+{
+ cout &lt;&lt; x &lt;&lt; endl;
+}</code></pre><ul id="434239b3-aa65-42ed-a223-2ee84f9d41c9" class="bulleted-list"><li style="list-style-type:circle">printOnNewLine(&quot;hello&quot;) will not compile</li></ul><ul id="df0bcb34-cbb9-423e-94d6-1b0937e89055" class="bulleted-list"><li style="list-style-type:circle">printOnNewLine(3) works</li></ul><h3 id="9d0a43dd-ab0f-4083-bc2a-5c7754f1a31f" class=""><span style="border-bottom:0.05em solid">Argument types matters 2:</span></h3><pre id="f77a52aa-683c-40d9-9ec6-3df661b2ec6f" class="code"><code>void printOnNewLine(char *x)
+{
+ cout &lt;&lt; x &lt;&lt; endl;
+}</code></pre><ul id="c8a288f7-117c-48b4-8da2-25ff61d1068d" class="bulleted-list"><li style="list-style-type:circle">printOnNewLine(3) will not compile</li></ul><ul id="2329ff64-9631-4abf-9d88-efcf8482b8cb" class="bulleted-list"><li style="list-style-type:circle">printOnNewLine(&quot;hello&quot;) works</li></ul></li></ul><h2 id="30d735db-7dab-4c6f-ba44-4be6e229f4d7" class="">Parameter Passing</h2><p id="406eeee1-65d0-4e74-9d18-03bdc547966d" class="">In this module we will see the ways of passing value to the parameter and how does the parameter react when function is called using Parameter Passing.</p><h3 id="f8c1238d-fc2d-4e4c-aa3d-77a4af13bf7c" class="">Types of Parameter</h3><p id="b585f5e8-28cd-4d1a-99d6-d0a9a9fc7e59" class="">A variable in a function header is called an parameter. The arguments/parameters are used to pass information from the calling function to the called function. <em>Parameters are also known as messenger.</em></p><ul id="cd54b5fa-47eb-4436-92e3-ead9843a5258" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid"><strong>Formal Parameter: </strong></span><ul id="ac1036c9-e82d-491c-a755-749e0d4d3907" class="bulleted-list"><li style="list-style-type:circle">The function header contains return-type-specifier, function name and list of arguments with their declaration.</li></ul><ul id="225eedf1-b2ca-4060-bd43-3b79a9fae57e" class="bulleted-list"><li style="list-style-type:circle">These arguments are called as formal arguments or dummy arguments. Formal arguments get their values from the actual arguments.</li></ul><p id="6251f712-3849-4678-8ade-cb40593b7e9b" class=""><strong><em>Syntax:</em></strong></p><pre id="67c12458-64b0-42b3-bdd1-b41845183a96" class="code"><code>int biggest (int x, int y, int z)   //Formal Parameter</code></pre></li></ul><ul id="659a08f9-1ff4-409e-b0c0-1db5d20a97cb" class="bulleted-list"><li style="list-style-type:disc"><span style="border-bottom:0.05em solid">Actual Parameter</span><ul id="9843b020-164e-4471-a19a-21adc1b30d8c" class="bulleted-list"><li style="list-style-type:circle">The function call statement contains name of the function and the list of arguments to be passed. These arguments or parameters are called as actual arguments.</li></ul><ul id="cb16978c-6e39-45fd-97ff-74ba2623bdd0" class="bulleted-list"><li style="list-style-type:circle">The arguments can be constants, variables, or expressions</li></ul><p id="42e3d872-8fab-4475-b873-77def2a8f879" class=""><strong><em>Syntax:</em></strong></p><pre id="fc8eafa5-446b-4596-a808-c29d06c53501" class="code"><code>biggest (a, b, c);    //Actual Parameter</code></pre></li></ul><h3 id="0986d3dd-f11d-4121-9ecc-dfa54de88a6a" class="">Anatomy of Parameter Passing</h3><div id="6c2345a0-3977-4b8a-a890-b14653d34f8a" class="column-list"><div id="00a8fb71-cb5f-43ff-a2bf-c7e3bcbd4ea1" style="width:50%" class="column"><ul id="d4d86054-2214-4b5e-b7c6-6998bd9bfe9d" class="bulleted-list"><li style="list-style-type:disc">Formal parameters, n1 and n2<ul id="f8b4f688-965e-499e-b920-321dce3d042b" class="bulleted-list"><li style="list-style-type:circle">Type of data they expect</li></ul><ul id="f1ffa418-5b5d-4a0f-a3f9-e3286782529a" class="bulleted-list"><li style="list-style-type:circle">Names that will be used internal to the function to
+refer to the values</li></ul></li></ul><ul id="df709484-8a6f-4ebc-b9d2-651fc28c4a0f" class="bulleted-list"><li style="list-style-type:disc">Actual paramters<ul id="d02ae2ff-b3d3-4322-8330-0ee7461a70d4" class="bulleted-list"><li style="list-style-type:circle">Actual values input to the function code by the
+caller</li></ul><ul id="d6f890cd-16dd-4e19-9dcd-47ab6fbc616f" class="bulleted-list"><li style="list-style-type:circle">A copy is made and given to function.</li></ul></li></ul><p id="d91cd10f-2fc1-4983-93b3-1432de413fcb" class="">After passing it will perform operation <code>return sum/s.0</code> and return and storw the value inside the <code>z</code> in main function. And print the value stored inside the <code>z</code> through <code>cout&lt;&lt;”AVG is ”&lt;&lt; z &lt;&lt;endl;</code> </p></div><div id="ccd678a5-2ee0-4439-9146-59604f9855bf" style="width:50%" class="column"><figure id="f5a05ca8-467d-4634-9367-314f7f15400b" class="image"><a href="./Programming with function C++/code3.png"><img style="width:384px" src="./Programming with function C++/code3.png"/></a></figure></div></div></div></article></body></html>
